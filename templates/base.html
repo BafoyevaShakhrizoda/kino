@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kino{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'staticfield/style.css' %}">
+</head>
+<body>
+ 
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="logo">XullasKino</a>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" {% if request.path == '/' %}class="active"{% endif %}>Home</a>
+            <a href="{% url 'movies' %}" {% if request.path == '/movies/' %}class="active"{% endif %}>Filmlar</a>
+            <a href="{% url 'about' %}" {% if request.path == '/about/' %}class="active"{% endif %}>Biz haqimizda</a>
+            <a href="{% url 'contact' %}" {% if request.path == '/contact/' %}class="active"{% endif %}>Bog'lanish</a>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Film qidirish...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </nav>
+
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <footer class="footer">
+        <p>&copy; 2025 Kino. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    
+</body>
+</html>

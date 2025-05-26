@@ -1,28 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>About - Menga Movies</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">MengaMovies</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="movies.html">Movies</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+{% extends 'base.html' %}
 
-    <!-- Content -->
-    <div class="content">
-        <h1>About Us</h1>
-        <p>We are a movie lovers platform sharing the latest updates and reviews.</p>
+{% block title %}XullasKino - Biz haqimizda{% endblock %}
+
+{% block content %}
+<section class="about">
+    <h1>Biz haqimizda</h1>
+    <p>XullasKino - bu eng yaxshi filmlar to'plami. Biz 2020-yildan beri foydalanuvchilarimizga eng sifatli kinolar bilan xizmat qilamiz.</p>
+    
+    <h2>Bizning jamoa</h2>
+    <div class="team">
+        <div class="member">
+            <img src="{% static 'images/team1.jpg' %}" alt="Jamoa a'zosi">
+            <h3>John Doe</h3>
+            <p>Asoschi & CEO</p>
+        </div>
+        <!-- Boshqa jamoa a'zolari -->
     </div>
-
-</body>
-</html>
+</section>
+{% endblock %}

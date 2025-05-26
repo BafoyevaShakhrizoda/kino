@@ -1,28 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>About - Menga Movies</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">MengaMovies</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="movies.html">Movies</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+{% extends 'base.html' %}
 
-    <!-- Content -->
-    <div class="content">
-        <h1>About Us</h1>
-        <p>We are a movie lovers platform sharing the latest updates and reviews.</p>
+{% block title %}XullasKino - Bog'lanish{% endblock %}
+
+{% block content %}
+<section class="contact">
+    <h1>Biz bilan bog'laning</h1>
+    
+    <div class="contact-info">
+        <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>Toshkent shahar, Yunusobod tumani</p>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <p>+998 90 123 45 67</p>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <p>info@xullaskino.uz</p>
+        </div>
     </div>
-
-</body>
-</html>
+    
+    <form class="contact-form">
+        <input type="text" placeholder="Ismingiz" required>
+        <input type="email" placeholder="Email manzilingiz" required>
+        <textarea placeholder="Xabaringiz..." required></textarea>
+        <button type="submit" class="btn">Xabarni Yuborish</button>
+    </form>
+</section>
+{% endblock %}

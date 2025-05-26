@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block title %}XullasKino - {{ movie.title }}{% endblock %}
+
+{% block content %}
+<div class="movie-detail">
+    <img src="{{ movie.poster.url }}" class="movie-poster" alt="{{ movie.title }}">
+    
+    <div class="movie-content">
+        <h1>{{ movie.title }} ({{ movie.year }})</h1>
+        <div class="rating-big">{{ movie.rating }}/10</div>
+        
+        <div class="movie-meta">
+            <span><i class="fas fa-clock"></i> {{ movie.duration }} min</span>
+            <span><i class="fas fa-film"></i> {{ movie.genre }}</span>
+            <span><i class="fas fa-calendar"></i> {{ movie.release_date }}</span>
+        </div>
+        
+        <div class="synopsis">
+            <h3>Sinopsis</h3>
+            <p>{{ movie.description }}</p>
+        </div>
+        
+        <a href="#" class="btn btn-trailer"><i class="fas fa-play"></i> Treylerni Ko'rish</a>
+    </div>
+</div>
+
+<section class="similar-movies">
+    <h2>O'xshash Filmlar</h2>
+    <div class="movie-grid">
+        {% for similar in similar_movies %}
+        <div class="movie-card">
+            <img src="{{ similar.poster.url }}" alt="{{ similar.title }}">
+            <div class="rating">{{ similar.rating }}/10</div>
+            <h3>{{ similar.title }}</h3>
+            <a href="{% url 'movie' similar.id %}" class="btn">Batafsil</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

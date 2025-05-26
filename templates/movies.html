@@ -1,32 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Movies - Menga Movies</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">MengaMovies</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="movies.html">Movies</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+{% extends 'base.html' %}
 
-    <!-- Content -->
-    <div class="content">
-        <h1>Popular Movies</h1>
-        <ul>
-            <li>Movie 1</li>
-            <li>Movie 2</li>
-            <li>Movie 3</li>
-        </ul>
+{% block title %}XullasKino - Barcha Filmlar{% endblock %}
+
+{% block content %}
+<h1>Barcha Filmlar</h1>
+
+<div class="movie-list">
+    {% for movie in movies %}
+    <div class="movie-item">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        <div class="movie-info">
+            <h2>{{ movie.title }}</h2>
+            <div class="meta">
+                <span>{{ movie.year }}</span>
+                <span>{{ movie.duration }} min</span>
+                <span>{{ movie.genre }}</span>
+            </div>
+            <div class="rating">{{ movie.rating }}/10</div>
+            <a href="{% url 'movie' movie.id %}" class="btn">Batafsil</a>
+        </div>
     </div>
-
-</body>
-</html>
+    {% endfor %}
+</div>
+{% endblock %}
