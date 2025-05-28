@@ -1,42 +1,179 @@
-
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}XullasKino - {{ movie.title }}{% endblock %}
+{% block title %}{{ movie.title }}{% endblock %}
 
 {% block content %}
-<div class="movie-detail">
-    <img src="{{ movie.poster.url }}" class="movie-poster" alt="{{ movie.title }}">
-    
-    <div class="movie-content">
-        <h1>{{ movie.title }} ({{ movie.year }})</h1>
-        <div class="rating-big">{{ movie.rating }}/10</div>
-        
-        <div class="movie-meta">
-            <span><i class="fas fa-clock"></i> {{ movie.duration }} min</span>
-            <span><i class="fas fa-film"></i> {{ movie.genre }}</span>
-            <span><i class="fas fa-calendar"></i> {{ movie.release_date }}</span>
-        </div>
-        
-        <div class="synopsis">
-            <h3>Sinopsis</h3>
-            <p>{{ movie.description }}</p>
-        </div>
-        
-        <a href="#" class="btn btn-trailer"><i class="fas fa-play"></i> Treylerni Ko'rish</a>
+<!-- Page Header -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'movies:list' %}">Movies</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ movie.title }}</li>
+            </ol>
+        </nav>
     </div>
-</div>
+</section>
 
-<section class="similar-movies">
-    <h2>O'xshash Filmlar</h2>
-    <div class="movie-grid">
-        {% for similar in similar_movies %}
-        <div class="movie-card">
-            <img src="{{ similar.poster.url }}" alt="{{ similar.title }}">
-            <div class="rating">{{ similar.rating }}/10</div>
-            <h3>{{ similar.title }}</h3>
-            <a href="{% url 'movie' similar.id %}" class="btn">Batafsil</a>
+<!-- Movie Details Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ movie.poster.url }}" class="img-fluid rounded shadow" alt="{{ movie.title }}" style="max-height: 500px;">
+            </div>
+            <div class="col-md-8">
+                <h1 class="fw-bold">{{ movie.title }}</h1>
+                <div class="mb-3">
+                    <span class="rating fs-4 text-warning">
+                        {% with ''|center:movie.rating as range %}
+                        {% for _ in range %}
+                        <i class="fas fa-star"></i>
+                        {% endfor %}
+                        {% endwith %}
+                        {{ movie.rating }}/10
+                    </span>
+                    <span class="ms-3">{{ movie.year }}</span>
+                    <span class="ms-3">{{ movie.duration }} min</span>
+                </div>
+                
+                <div class="mb-4">
+                    {% for genre in movie.genres.all %}
+                    <span class="badge bg-primary me-1">{{ genre.name }}</span>
+                    {% endfor %}
+                </div>
+                
+                <h3 class="mt-4">Overview</h3>
+                <p>{{ movie.description }}</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                       {% extends 'base.html' %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="movies.html">Movies</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Movie Title</li>
+                </ol>
+            </nav>
         </div>
-        {% endfor %}
+    </section>
+
+    <!-- Movie Details Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ movie.poster.url }}" class="img-fluid single-movie-poster rounded" alt="Movie Poster">
+                </div>
+                <div class="col-md-8">
+                    <h1 class="fw-bold">{{ movie.title }}</h1>
+                    <div class="mb-3">
+                        <span class="rating fs-4"><i class="fas fa-star"></i> 8.5/10</span>
+                        <span class="ms-3">{{ movie.release_date.year }}</span>
+                        <span class="ms-3">{{ movie.duration }}</span>
+                        <span class="ms-3">PG-13</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        {% for genre in movie.genres.all %}
+                        <span class="badge bg-primary genre-badge">{{ genre.name }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <h3 class="mt-4">Overview</h3>
+                    <p>{{ movie.description }}</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5>Director</h5>
+                            <p>Christopher Nolan</p>
+                            
+                            <h5>Writers</h5>
+                            <p>Jonathan Nolan, Christopher Nolan</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Release Date</h5>
+                            <p>{{ movie.release_date }}</p>
+                            
+                            <h5>Budget</h5>
+                            <p>$200,000,000</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-primary me-2"><i class="fas fa-ticket-alt"></i> Buy Tickets</a>
+                        <a href="#" class="btn btn-outline-secondary"><i class="fas fa-bookmark"></i> Watchlist</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trailer Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="mb-4">Trailer</h3>
+                    <div class="trailer-container rounded">
+                        <iframe width="560" height="315" src="{{ movie.trailer_set.all.0.youtube_url }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cast Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="mb-4">Cast</h3>
+                    <div class="row">
+                        {% for actor in movie.cast.all %}
+                        <div class="col-6 col-md-3 col-lg-2">
+                            <div class="cast-member">
+                                <img src="{{ actor.picture.url }}" class="img-fluid rounded-circle" alt="{{ actor }}">
+                                <h6 class="mb-0">{{ actor }}</h6>
+                                <small class="text-muted">Character</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- Repeat for other cast members -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Similar Movies Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="mb-4">Similar Movies</h3>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3 mb-4">
+                            <div class="card movie-card">
+                                <img src="https://via.placeholder.com/300x450" class="card-img-top movie-poster" alt="Movie Poster">
+                                <div class="card-body">
+                                    <h5 class="card-title">Similar Movie</h5>
+                                    <div class="mb-2">
+                                        <span class="rating"><i class="fas fa-star"></i> 8.2</span>
+                                    </div>
+                                    <a href="single-movie.html" class="btn btn-sm btn-primary">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeat for other similar movies -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %} <h5>Release Date</h5>
+                        <p>{{ movie.release_date }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
