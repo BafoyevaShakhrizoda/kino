@@ -1,56 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
 
-{% block title %}{{ movie.title }}{% endblock %}
-
-{% block content %}
-<!-- Page Header -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'movies:list' %}">Movies</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ movie.title }}</li>
-            </ol>
-        </nav>
-    </div>
-</section>
-
-<!-- Movie Details Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="{{ movie.poster.url }}" class="img-fluid rounded shadow" alt="{{ movie.title }}" style="max-height: 500px;">
-            </div>
-            <div class="col-md-8">
-                <h1 class="fw-bold">{{ movie.title }}</h1>
-                <div class="mb-3">
-                    <span class="rating fs-4 text-warning">
-                        {% with ''|center:movie.rating as range %}
-                        {% for _ in range %}
-                        <i class="fas fa-star"></i>
-                        {% endfor %}
-                        {% endwith %}
-                        {{ movie.rating }}/10
-                    </span>
-                    <span class="ms-3">{{ movie.year }}</span>
-                    <span class="ms-3">{{ movie.duration }} min</span>
-                </div>
-                
-                <div class="mb-4">
-                    {% for genre in movie.genres.all %}
-                    <span class="badge bg-primary me-1">{{ genre.name }}</span>
-                    {% endfor %}
-                </div>
-                
-                <h3 class="mt-4">Overview</h3>
-                <p>{{ movie.description }}</p>
-                
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                       {% extends 'base.html' %}
+ {% extends 'base.html' %}
 
 {% block content %}
     <!-- Page Header -->
@@ -143,7 +92,38 @@
                     </div>
                 </div>
             </div>
-            
+             <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="mb-4">Leave a Review</h3>
+                    <form method="post" action="{% url 'add_review' movie.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <select class="form-select" id="rating" name="rating" required>
+                                <option value="">Choose...</option>
+                                {% for i in "12345678910"|make_list %}
+                                <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Review</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+
+
             <!-- Similar Movies Section -->
             <div class="row mt-5">
                 <div class="col-12">
@@ -168,12 +148,6 @@
         </div>
     </section>
 
+
 {% endblock %} <h5>Release Date</h5>
-                        <p>{{ movie.release_date }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endblock %}
+                     
