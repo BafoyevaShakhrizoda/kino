@@ -53,6 +53,10 @@ class Review(BaseModel):
         return f"{self.movie}- {self.rating}"
 
 
-    
+class Views(BaseModel):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.movie} " 
 
     

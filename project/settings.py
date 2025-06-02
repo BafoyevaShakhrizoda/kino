@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     
     'apps.common',
     'apps.movies',
+    'apps.meta',
+    
 ]
 
 MIDDLEWARE = [

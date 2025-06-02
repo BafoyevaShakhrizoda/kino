@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.urls import reverse
 
-from apps.movies.models import Movie, Review
+from apps.movies.models import Movie, Review , Views
 
 
 def movies_view(request):
@@ -37,3 +37,5 @@ def add_review_view(request,pk):
                         )
 
     return redirect(reverse('single_movie', kwargs={'pk': pk}))
+
+        
