@@ -23,7 +23,7 @@ class Actor(BaseModel):
 class Movie(BaseModel):
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
-    release_date = models.DateTimeField()
+    release_date = models.DateTimeField(null=True, blank=True)
     duration = models.DurationField()
     poster = models.ImageField(upload_to='movies/poster', blank=True, null=True)
     cast = models.ManyToManyField(Actor)
@@ -31,6 +31,11 @@ class Movie(BaseModel):
 
     def __str__(self):
         return self.title
+    
+    @property
+    def view_count(self):
+        views  = self.movieview_set.count()
+        return views
 
 
 class Trailer(BaseModel):
@@ -52,11 +57,6 @@ class Review(BaseModel):
     def __str__(self):
         return f"{self.movie}- {self.rating}"
 
-
-class Views(BaseModel):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.movie} " 
+    
 
     
