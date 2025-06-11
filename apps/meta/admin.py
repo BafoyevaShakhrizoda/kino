@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.meta.models import MovieView
+
+admin.site.register(MovieView)
